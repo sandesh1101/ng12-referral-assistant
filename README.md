@@ -60,10 +60,11 @@ Run the container (ensure you pass Google Cloud credentials):
 For Windows:
 ```bash
 docker run -p 8000:8000 `
--e GCP_PROJECT_ID=your-project-id `
--e GCP_LOCATION=server_location `
--v $HOME\.config\gcloud:/root/.config/gcloud `
-ng12-app
+  -e GCP_PROJECT_ID=your-project-id `
+  -e GCP_LOCATION=GCP_LOCATION `
+  -e GOOGLE_API_KEY=Your-API-key `
+  -v "$env:APPDATA\gcloud:/root/.config/gcloud" `
+  ng12-app
 ```
 Open http://localhost:8000/ in your browser. You can enter the patient_ID and also chat with the chatbot.
 
@@ -73,7 +74,8 @@ For Mac/Linux:
 # Assuming you have Application Default Credentials (ADC) set up locally
 docker run -p 8000:8000 \
   -e GCP_PROJECT_ID=your-project-id \
-  -e GCP_LOCATION=server_location \
+  -e GCP_LOCATION=GCP_LOCATION \
+  -e GOOGLE_API_KEY=your-api-key \
   -v ~/.config/gcloud:/root/.config/gcloud \
   ng12-app
 ```
