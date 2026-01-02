@@ -9,33 +9,29 @@ This project implements a clinical decision support system based on the NICE NG1
 
 ## Performance Optimizations
 *   **Latency Reduction:** Implemented LRU caching, reduced RAG context size, and added a **server startup warmup** routine to handle the initial connection overhead (cold start) before the first user request.
+*   **Model Efficiency:** Selected `gemini-2.5-flash` for its balance of speed and reasoning capability, ensuring sub-second inference times for real-time interactions.
+*   **Asynchronous Design:** Leveraged FastAPI's async capabilities to handle concurrent user requests without blocking, improving throughput under load.
 
 ## Setup
 
-1.  **Create Virtual Environment (Recommended):**
-    ```bash
-    python -m venv venv
-    # Windows:
-    venv\Scripts\activate
-    # Mac/Linux:
-    source venv/bin/activate
-    ```
-2.  **Install Dependencies:**
+1.  **Install Dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
-3.  **Environment Variables:**
+2.  **Environment Variables:**
     Create a `.env` file in the root directory:
+    ```Add your GCP project ID here:
     ```env
     GCP_PROJECT_ID=your-project-id
     GCP_LOCATION=us-central1
     ```
-4.  **Authentication (Important):**
+3.  **Authentication (Important):**
     You must be authenticated with Google Cloud to use Vertex AI.
     ```bash
     gcloud auth application-default login
     ```
-5.  **Ingest Data:**
+4.  **Ingest Data: (important)**
+4.  **Ingest Data:**
     If running for the first time, build the vector database:
     ```bash
     python scripts/ingest_ng12_pdf.py
@@ -52,17 +48,32 @@ uvicorn app.main:app --reload
 *   **Use Chat:** Click the floating 💬 icon in the bottom-right corner to open the chat widget.
 *   **API Docs:** Swagger UI is available at `http://127.0.0.1:8000/docs`.
 
-### 2. Docker Execution
+### 2. Docker Execution(Please complete the setup 4 steps to run the docker container)
+
 Build the container:
 ```bash
 docker build -t ng12-app .
 ```
 
 Run the container (ensure you pass Google Cloud credentials):
+
+For Windows:
+```bash
+docker run -p 8000:8000 `
+-e GCP_PROJECT_ID=your-project-id `
+-e GCP_LOCATION=server_location `
+-v $HOME\.config\gcloud:/root/.config/gcloud `
+ng12-app
+```
+Open http://localhost:8000/ in your browser. You can enter the patient_ID and also chat with the chatbot.
+
+
+For Mac/Linux:
 ```bash
 # Assuming you have Application Default Credentials (ADC) set up locally
 docker run -p 8000:8000 \
   -e GCP_PROJECT_ID=your-project-id \
+  -e GCP_LOCATION=server_location \
   -v ~/.config/gcloud:/root/.config/gcloud \
   ng12-app
 ```

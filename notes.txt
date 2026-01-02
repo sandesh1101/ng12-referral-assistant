@@ -19,3 +19,8 @@ the accuracy of retrieval and generation.
 * Hybrid Search: Combine vector search with keyword search (BM25) to better handle specific 
 medical terminology.
 * Frontend: Decouple the UI into a separate React/Next.js application for better user experience.
+
+Model Selection:
+* Gemini 2.5 Flash vs 1.5: We utilized `gemini-2.5-flash` instead of the `gemini-1.5` series. This choice was driven by superior context
+ understanding and instruction following (crucial for strict JSON formatting). Additionally, earlier preview versions of the 1.5 series
+ have been deprecated and shut down, making the migration to the latest stable 2.5 version necessary for long-term reliability.
