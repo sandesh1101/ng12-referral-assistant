@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
-from langchain_google_vertexai import VertexAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 # Import config
 import app.config as config  
@@ -40,10 +40,9 @@ def ingest():
     chunks = splitter.split_documents(docs)
     print(f"Created {len(chunks)} text chunks.")
 
-    emb = VertexAIEmbeddings(
-        model_name=config.EMBEDDING_MODEL,
-        project=config.PROJECT_ID,
-        location=config.LOCATION
+    emb = GoogleGenerativeAIEmbeddings(
+        model=config.EMBEDDING_MODEL,
+        google_api_key=os.getenv('GOOGLE_API_KEY')
     )
 
     batch_size = 10

@@ -24,6 +24,7 @@ This project implements a clinical decision support system based on the NICE NG1
     ```env
     GCP_PROJECT_ID=your-project-id
     GCP_LOCATION=us-central1
+    GOOGLE_API_KEY=your-api-key
     ```
 3.  **Authentication (Important):**
     You must be authenticated with Google Cloud to use Vertex AI.
@@ -31,7 +32,6 @@ This project implements a clinical decision support system based on the NICE NG1
     gcloud auth application-default login
     ```
 4.  **Ingest Data: (important)**
-4.  **Ingest Data:**
     If running for the first time, build the vector database:
     ```bash
     python scripts/ingest_ng12_pdf.py
