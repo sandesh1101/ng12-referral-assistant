@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual Environment
+venv/
+env/
+
+# Environment Variables (CRITICAL: Do not upload secrets)
+.env
+
+# Vector Database (Generated locally)
+chroma_db/
+
+# IDE settings
+.vscode/
+.idea/

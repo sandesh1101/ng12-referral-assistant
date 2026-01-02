@@ -1,0 +1,21 @@
+Design Considerations & Notes
+
+Assumptions:
+* Environment: Assumes access to Google Cloud Vertex AI.
+* Data: The NG12 PDF is the sole source of truth for the RAG pipeline.
+
+Trade-offs:
+* In-Memory Session Store: For the chat feature, session history is stored in memory.
+ In a production environment, this would be replaced with a persistent store 
+ (e.g., Redis or Firestore) to allow for stateless scaling and durability.
+* PDF Parsing: The current PyPDFLoader is efficient but may struggle with complex 
+tables found in medical docs. A production iteration might use Google 
+Cloud Document AI for higher fidelity extraction.
+* Security: API authentication was omitted to focus on the core logic.
+
+Future Improvements:
+* Evaluation: Implement an automated evaluation pipeline (using tools like Ragas) to benchmark 
+the accuracy of retrieval and generation.
+* Hybrid Search: Combine vector search with keyword search (BM25) to better handle specific 
+medical terminology.
+* Frontend: Decouple the UI into a separate React/Next.js application for better user experience.
